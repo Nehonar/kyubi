@@ -1,15 +1,20 @@
-class GetCustomers():
+import html_to_json
 
-    def __init__(self):
-        print("get customers")
-        # self.qty_curtomers = len(resp_customers['html'][0]['body'][0]['div'][0]['div'][0]['ul'])
-        # self.customer_data = data_customers[0]['li']
-        # self.customer_name = data_customers[0]['li'][0]['h4'][0]['_value']
-        # self.customer_participation = data_customers[0]['li']
-        # self.customer_doc = data_customers[0]['li']
-        # self.customer_address = data_customers[0]['li'][3]['_value']
-        # self.customer_emails = data_customers[0]['li'][2]['_value']
-        # self.customer_phones = data_customers[0]['li'][1]['_value']
+class Customers:
+
+    def get(self, session):
+        print("Init get customer")
+        # session.get("https://test.unnax.com/customer")
+
+        # data_customers = html_to_json.convert(data_customers.text)
+        # qty_curtomers = len(data_customers['html'][0]['body'][0]['div'][0]['div'][0]['ul'])
+        # cust_data = data_customers[0]['li']
+        # cust_name = data_customers[0]['li'][0]['h4'][0]['_value']
+        # cust_participation = data_customers[0]['li']
+        # cust_doc = data_customers[0]['li']
+        # cust_address = data_customers[0]['li'][3]['_value']
+        # cust_emails = data_customers[0]['li'][2]['_value']
+        # cust_phones = data_customers[0]['li'][1]['_value']
         # print(f"Total customers: {qty_curtomers}", end="\n          ")
         # print("Customer data:", end="\n             ")
         # print(f"Name: {customer_name}", end="\n             ")

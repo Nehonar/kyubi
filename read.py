@@ -1,7 +1,5 @@
 import argparse
-import html_to_json
-from app.login import Login
-from app.get_statements import GetStatements
+from app.bank import Bank
 
 parser = argparse.ArgumentParser(description='Login through username and password')
 parser.add_argument('--username', required=True, help='Username')
@@ -13,8 +11,7 @@ auth_data = {
     'password': args.password
 }
 
-(session, data) = Login.login_session(auth_data)
-print(html_to_json.convert(data.text))
+Bank(auth_data)
 # print(GetStatements(session, "statements/1"))
 
 
