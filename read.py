@@ -1,21 +1,54 @@
-import requests
 import argparse
-import html_to_json
-import json
+import logging
 
-# format_map() -> para dar formato al json
+from app.bank import Bank
+from app import Status
 
-parser = argparse.ArgumentParser(description='Login through username and password')
-parser.add_argument('--username', required=True, help='Username')
-parser.add_argument('--password', required=True, help='Password')
-args = parser.parse_args()
+logging.basicConfig(level=logging.DEBUG)
 
-auth_data = {'username': args.username, 'password': args.password}
-session = requests.session()
-resp = session.post('https://test.unnax.com/login', data=auth_data)
-resp_html = resp.text
-json_html = html_to_json.convert(resp_html)
+log = logging.getLogger("read")
 
-# resp_statement_1 = session.get('http://test.unnax.com/statements/1')
+if __name__ == "__main__":
 
-# print(resp_statement_1.text)
+    # Get data authentication
+    parser = argparse.ArgumentParser(description='Login through username and password')
+    parser.add_argument('--username', required=True, help='Username')
+    parser.add_argument('--password', required=True, help='Password')
+    args = parser.parse_args()
+    auth_data = {
+        'username': args.username, 
+        'password': args.password
+    }
+
+    # Bank petitions
+    bank = Bank()
+
+    login_status = bank.login(auth_data)
+    if login_status == Status.LoginError:
+        log.error("Fail in login get out")
+        exit(1)
+
+    accounts = bank.get_accounts()
+
+    # Print info accounts
+    print(f"Accounts ( {len(accounts)} )", end="\n\n     ")
+    for account in accounts:
+        # Account data
+        print("Account data:",                  end="\n         ")
+        print("Name: ",     account.name,       end="\n         ")
+        print("Number: ",   account.number,     end="\n         ")
+        print("Currency: ", account.currency,   end="\n         ")
+        print("Balance: ",  account.balance,    end="\n\n     ")
+        # Total customers
+        for customer in account.customers:
+            print("Total customers: ", customer.qty,            end="\n         ")
+            print("Customer data:",                             end="\n              ")
+            print("Name: ", customer.name,                      end="\n              ")
+            print("Participation: ", customer.participation,    end="\n              ")
+            print("Doc: ", customer.doc,                        end="\n\n              ")
+            print("Address", customer.address,                  end="\n\n              ")
+            print("Email: ", customer.emails,                    end="\n              ")
+            print("Phones: ", customer.phones,                  end="\n\n     ")
+        for statement in account.statements:
+            print("statements")
+        
