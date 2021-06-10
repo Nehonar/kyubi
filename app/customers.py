@@ -1,10 +1,22 @@
 import html_to_json
 
-class Customers:
+class Customer:
 
-    def get(self, session):
-        print("Init get customer")
-        # session.get("https://test.unnax.com/customer")
+    def __init__(self, **args):
+        self.qty =              args.get('qty', '')
+        self.name =             args.get('name', '')
+        self.participation =    args.get('participation', '')
+        self.doc =              args.get('doc', '')
+        self.address =          args.get('address', '')
+        self.emails =           args.get('emails', '')
+        self.phones =           args.get('phones', '')
+    
+    def __str__(self):
+        return f'{self.name}'
+
+    # def get(self, session):
+    #     print("Init get customers")
+    #     session.get("https://test.unnax.com/customer")
 
         # data_customers = html_to_json.convert(data_customers.text)
         # qty_curtomers = len(data_customers['html'][0]['body'][0]['div'][0]['div'][0]['ul'])

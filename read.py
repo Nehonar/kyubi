@@ -1,4 +1,5 @@
 import argparse
+from app.login import Login
 from app.bank import Bank
 
 parser = argparse.ArgumentParser(description='Login through username and password')
@@ -11,7 +12,31 @@ auth_data = {
     'password': args.password
 }
 
-Bank(auth_data)
+(session, html_accounts) = Bank.login(auth_data)
+
+accounts = Bank.get_accounts(html_accounts, session)
+customers = Bank.get_customers(session)
+
+print(f"Accounts ( {len(accounts)} )", end="\n\n     ")
+for account in accounts:
+    # Account data
+    print("Account data:",                  end="\n         ")
+    print("Name: ",     account.name,       end="\n         ")
+    print("Number: ",   account.number,     end="\n         ")
+    print("Currency: ", account.currency,   end="\n         ")
+    print("Balance: ",  account.balance,    end="\n\n     ")
+    # Total customers
+    for customer in customers:
+        print("Total customers: ", customer.qty,            end="\n         ")
+        print("Customer data:",                             end="\n              ")
+        print("Name: ", customer.name,                      end="\n              ")
+        print("Participation: ", customer.participation,    end="\n              ")
+        print("Doc: ", customer.doc,                        end="\n\n              ")
+        print("Address", customer.address,                  end="\n\n              ")
+        print("Email: ", customer.emails,                    end="\n              ")
+        print("Phones: ", customer.phones,                  end="\n\n     ")
+
+
 # print(GetStatements(session, "statements/1"))
 
 
