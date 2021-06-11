@@ -1,13 +1,13 @@
 class Customer:
 
     def __init__(self, **args):
-        self.qty =              args.get('qty', '')
-        self.name =             args.get('name', '')
-        self.participation =    args.get('participation', '')
-        self.doc =              args.get('doc', '')
-        self.address =          args.get('address', '')
-        self.emails =           args.get('emails', '')
-        self.phones =           args.get('phones', '')
+        self._qty =              args.get('qty', '')
+        self._name =             args.get('name', '')
+        self._participation =    args.get('participation', '')
+        self._doc =              args.get('doc', '')
+        self._address =          args.get('address', '')
+        self._emails =           args.get('emails', '')
+        self._phones =           args.get('phones', '')
     
     def __str__(self):
         return f'{self.name}'

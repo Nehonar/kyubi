@@ -31,6 +31,8 @@ if __name__ == "__main__":
 
     accounts = bank.get_accounts()
 
+    log.info('Start data print')
+
     # Print info accounts
     print(f"Accounts ( {len(accounts)} )")
     for account in accounts:

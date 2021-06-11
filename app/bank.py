@@ -23,18 +23,18 @@ class Bank:
         self._session = requests.session()
 
     def login(self, auth_data):
-        log.info('Start login')
         response =  self._session.post(self._url + 'login', data=auth_data)
 
         if "Login" in response.text or not response.ok:
             log.error("Failed login")
             return Status.LoginError
 
-        self._html_accounts = response.text
         log.info("Login OK")
+        self._html_accounts = response.text
         return Status.LoginOk
 
     def get_accounts(self):
+        log.info('Start get accounts')
         html_accounts = BeautifulSoup(self._html_accounts, 'html.parser')
         list_accounts = html_accounts.find_all('li', {'class': 'collection-item'})
         
@@ -46,7 +46,7 @@ class Bank:
             account.name =      data_account.span.string
             account.number =    data_account.find('p').getText()[0:20]
             account.currency =  data_account.p.span.string[0] # TODO create table conversion
-            account.balance =   data_account.p.span.string[1:]
+            account.balance =   data_account.p.span.string[1:] # TODO check the balance is positive or negative
             # In case to crush statement or customer pass to next account
             try:
                 account.statements = self._get_statements(data_account.find_all('a')[0]['href'])
