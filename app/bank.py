@@ -118,7 +118,7 @@ class Bank:
             except:
                 statement.amount = data_statement[2].string[1:]
             try:
-                if data_statement[2]:
+                if data_statement[2]['class'][0] == 'red-text':
                     statement.amount = "-" + data_statement[2].string[1:]
             except:
                     statement.amount = data_statement[2].string[1:]
