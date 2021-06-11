@@ -35,7 +35,7 @@ if __name__ == "__main__":
     print(f"Accounts ( {len(accounts)} )")
     for account in accounts:
         # Account data
-        print("    Account data:",              end="\n         ")
+        print("Account data:",              end="\n         ")
         print("Name: ",     account.name,       end="\n         ")
         print("Number: ",   account.number,     end="\n         ")
         print("Currency: ", account.currency,   end="\n         ")
