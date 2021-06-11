@@ -5,7 +5,7 @@ class Account:
         self._currency =     args.get('currency', '')
         self._balance =      args.get('balance', '')
         self._customers =    args.get('customers', '')
-        self._statements =    args.get('statements', '')
+        self._statements =   args.get('statements', '')
     
     def __str__(self):
         return f'{self.name}'

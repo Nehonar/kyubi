@@ -64,7 +64,7 @@ class Bank:
 
         if not resp.ok:
             log.error("Error customers")
-            raise Exception("Error, no existen customers")
+            raise Exception("Error, there are no customers")
         
         log.info("Get customers")
 
@@ -94,15 +94,37 @@ class Bank:
 
     def _get_statements(self, link_statement):
         resp = self._session.get(self._url + link_statement)
+
+        if not resp.ok:
+            log.error("Error statements")
+            raise Exception("Error, there are no statements")
+
+        log.info("Get statements")
+        
         html_statements = BeautifulSoup(resp.text, 'html.parser')
-        list_statements = html_statements.find_all('tr')
+        list_statements = html_statements.find_all('tr')[1:]
         
         statements = []
 
         for data_statement in list_statements:
             statement = Statement()
-
-            statement.qty = len(data_statement)
+            data_statement = data_statement.find_all('td')
+            
+            statement.qty = len(list_statements)
+            statement.date = data_statement[1].string
+            try:
+                if data_statement[2]['class'][0] == 'red-text':
+                    statement.amount = "-" + data_statement[2].string[1:]
+            except:
+                statement.amount = data_statement[2].string[1:]
+            try:
+                if data_statement[2]:
+                    statement.amount = "-" + data_statement[2].string[1:]
+            except:
+                    statement.amount = data_statement[2].string[1:]
+            statement.balance = data_statement[3].string[1:]
+            statement.concept = data_statement[0].string
+            
             statements.append(statement)
         
         return statements
