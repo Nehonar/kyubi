@@ -6,10 +6,6 @@ Punto 1.
 
 Realizar un script en python que permita hacer el login del banco de pruebas que tenemos en http://test.unnax.com/, y que imprima la información del usuario, sus cuentas y movimientos.
 
-El script debería poder ejecutarse de la siguiente manera:
-
-python read.py --username Y3216434F --password pperez2018
-
 Y el resultado esperado en la terminal sería el siguiente:
 
 # Resultado Ex:
