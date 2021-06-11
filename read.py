@@ -1,5 +1,6 @@
 import argparse
 import logging
+from os import stat
 
 from app.bank import Bank
 from app import Status
@@ -31,10 +32,10 @@ if __name__ == "__main__":
     accounts = bank.get_accounts()
 
     # Print info accounts
-    print(f"Accounts ( {len(accounts)} )", end="\n\n     ")
+    print(f"Accounts ( {len(accounts)} )")
     for account in accounts:
         # Account data
-        print("Account data:",                  end="\n         ")
+        print("    Account data:",              end="\n         ")
         print("Name: ",     account.name,       end="\n         ")
         print("Number: ",   account.number,     end="\n         ")
         print("Currency: ", account.currency,   end="\n         ")
@@ -47,8 +48,11 @@ if __name__ == "__main__":
             print("Participation: ", customer.participation,    end="\n              ")
             print("Doc: ", customer.doc,                        end="\n\n              ")
             print("Address", customer.address,                  end="\n\n              ")
-            print("Email: ", customer.emails,                    end="\n              ")
+            print("Email: ", customer.emails,                   end="\n              ")
             print("Phones: ", customer.phones,                  end="\n\n     ")
+            print(f"Statements ( {len(account.statements)} )",       end="\n              ")
+            print("Date           |  Amount  | Balance   | Concept", end="\n\n              ")
         for statement in account.statements:
-            print("statements")
+            print(f"{statement.date}     |    {statement.amount}   |   {statement.balance}   |  {statement.concept}", end="\n\n              ")
+        
         
