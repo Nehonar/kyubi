@@ -46,7 +46,7 @@ class Bank:
             account.name =      data_account.span.string
             account.number =    data_account.find('p').getText()[0:20]
             account.currency =  data_account.p.span.string[0] # TODO create table conversion
-            account.balance =   data_account.p.span.string[1:] # TODO check the balance is positive or negative
+            account.balance =   data_account.p.span.string[1:]
             # In case to crush statement or customer pass to next account
             try:
                 account.statements = self._get_statements(data_account.find_all('a')[0]['href'])
